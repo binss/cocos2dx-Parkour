@@ -63,13 +63,13 @@ void GameScenePlayLayer::createCoin(float dt)
 	object->setPosition(ccp(object->getContentSize().width/2 + 480 ,object->getContentSize().height/2 + 35));
 	crashArray->addObject(object);
 	this->addChild(object);
-	
+	/*
 	CCMoveBy *action = CCMoveBy::create(6,ccp(-480 - object->getContentSize().width / 2,0));               //the second parameter is offset
 
 	CCCallFuncO *callback = CCCallFuncO::create(this,callfuncO_selector(GameScenePlayLayer::rubbishCollection), object);
 	CCSequence *sequence = CCSequence::create(action,callback,NULL);   //do action and then callback(destroy)
 	object->runAction(sequence);
-
+	*/
 }
 
 void GameScenePlayLayer::rubbishCollection(CCObject *object)               //destroy the object which is out of view
@@ -152,17 +152,27 @@ void GameScenePlayLayer::backgroundInit()
 
 void GameScenePlayLayer::update(float dt)
 {
-  if(backgroundCopy ->getPosition().x>=0){
+	CCObject *obj;
+	CCARRAY_FOREACH(crashArray,obj)
+	{
+		CCSprite *object = (CCSprite*)obj;
+		object->setPositionX(object->getPosition().x-1);
+		if(object->getPosition().x < 50)
+			rubbishCollection(object);
+	}
 
-	  background->setPosition(ccp(background->getPosition().x-1, 0));
-	  backgroundCopy->setPosition(ccp(backgroundCopy->getPosition().x-1, 0));
-	  shop->setPosition(ccp(shop->getPosition().x-1.5, shop->getPosition().y));
-	  ground->setPosition(ccp(ground->getPosition().x-1, 0));
-	  groundCopy->setPosition(ccp(groundCopy->getPosition().x-1, 0));
-  }else{
-
-	  resetBackground();
-  }
+    if(backgroundCopy ->getPosition().x>=0)
+    {
+		background->setPosition(ccp(background->getPosition().x-1, 0));
+		backgroundCopy->setPosition(ccp(backgroundCopy->getPosition().x-1, 0));
+		shop->setPosition(ccp(shop->getPosition().x-1.5, shop->getPosition().y));
+		ground->setPosition(ccp(ground->getPosition().x-1, 0));
+		groundCopy->setPosition(ccp(groundCopy->getPosition().x-1, 0));
+	 }
+	else
+	{
+		resetBackground();
+	}
 }
 
 void GameScenePlayLayer::resetBackground()
