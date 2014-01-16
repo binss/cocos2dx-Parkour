@@ -38,6 +38,17 @@ private:
     virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	void createCoin(float dt);
 	void rubbishCollection(CCObject *object);
+	void changeSeason(float dt);
+	CCSpriteFrame* background_spring;
+	CCSpriteFrame* background_summer;
+	CCSpriteFrame* background_autumn;
+	CCSpriteFrame* background_winter;
+	CCSpriteFrame* ground_spring;
+	CCSpriteFrame* ground_summer;
+	CCSpriteFrame* ground_autumn;
+	CCSpriteFrame* ground_winter;
+
+
 	CCSprite* background;
 	CCSprite* backgroundCopy;
 	CCSprite* shop;
@@ -47,6 +58,7 @@ private:
 
 	CCSize winSize;
  	int actionNum;
+	int season;
 	CCArray *crashArray;
 
 	enum

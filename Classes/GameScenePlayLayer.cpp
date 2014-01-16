@@ -16,10 +16,30 @@ bool GameScenePlayLayer::init()
 {
 	crashArray = CCArray::create();
 	crashArray->retain();
+
+
     winSize = CCDirector::sharedDirector()->getWinSize();
 	this->running();
 	this->setTouchEnabled(true);
 	actionNum = ACTION_RUN;
+
+
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("pictures/background.plist");
+	//创建一个精灵批处理节点，CCSpriteBatchNode可以智能地遍历它的所有的孩子结点，并通过一次OpenGL ES call来渲染这些孩子,提升渲染速度
+	CCSpriteBatchNode *spriteBatch= CCSpriteBatchNode::create("pictures/background.png");  
+	this->addChild(spriteBatch);
+
+
+	background_spring = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("background-spring.png");
+	background_summer = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("background-summer.png");
+	background_autumn = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("background-autumn.png");
+	background_winter = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("background-winter.png");
+	ground_spring = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("soilGround.png");
+	ground_summer = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("greenGround.png");
+	ground_autumn = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("mapleGround.png");
+	ground_winter = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("snowGround.png");
+
+
 	backgroundInit();
 
 	//Add snow particle
@@ -29,6 +49,7 @@ bool GameScenePlayLayer::init()
 
 
 	this->schedule(schedule_selector(GameScenePlayLayer::createCoin),0.8f);
+	this->schedule(schedule_selector(GameScenePlayLayer::changeSeason),10);
 	this->scheduleUpdate();   
 
     return true;
@@ -60,7 +81,7 @@ void GameScenePlayLayer::createCoin(float dt)
 	object->setScale(0.4f);
 	//CCSprite *object = CCSprite::createWithSpriteFrameName(pic);
 	object->setTag(tag);
-	object->setPosition(ccp(object->getContentSize().width/2 + 480 ,object->getContentSize().height/2 + 35));
+	object->setPosition(ccp(object->getContentSize().width/2 + 480 ,object->getContentSize().height/2 + 25));
 	crashArray->addObject(object);
 	this->addChild(object);
 	/*
@@ -117,17 +138,61 @@ void GameScenePlayLayer::runJump()
  
 }
 
+void GameScenePlayLayer::changeSeason(float dt)
+{
+	season++;
+	if(season >4)
+		season = 1;
+	switch (season)
+	{
+	case 1:
+		{
+			background->setDisplayFrame(background_spring);
+			backgroundCopy->setDisplayFrame(background_spring);
+			ground->setDisplayFrame(ground_spring);
+			groundCopy->setDisplayFrame(ground_spring);
+			break;
+		}
+	case 2:
+		{
+			background->setDisplayFrame(background_summer);
+			backgroundCopy->setDisplayFrame(background_summer);
+			ground->setDisplayFrame(ground_summer);
+			groundCopy->setDisplayFrame(ground_summer);
+			break;
+		}
+	case 3:
+		{
+			background->setDisplayFrame(background_autumn);
+			backgroundCopy->setDisplayFrame(background_autumn);
+			ground->setDisplayFrame(ground_autumn);
+			groundCopy->setDisplayFrame(ground_autumn);
+			break;
+		}
+	case 4:
+		{
+			background->setDisplayFrame(background_winter);
+			backgroundCopy->setDisplayFrame(background_winter);
+			ground->setDisplayFrame(ground_winter);
+			groundCopy->setDisplayFrame(ground_winter);
+			break;
+		}
+		
+	}
+}
+
 void GameScenePlayLayer::backgroundInit()
 {
+	season = 1;
 	float winWidth = winSize.width;
 	float winHeight = winSize.height;
     
-	background = CCSprite::create("pictures/background.png");
-	backgroundCopy = CCSprite::create("pictures/background.png");
+	background = CCSprite::createWithSpriteFrameName("background-spring.png");
+	backgroundCopy = CCSprite::createWithSpriteFrameName("background-spring.png");
 	shop = CCSprite::create("pictures/shop.png");
 	sun = CCSprite::create("pictures/sun.png");
-	ground = CCSprite::create("pictures/snowGround.png");;
-    groundCopy = CCSprite::create("pictures/snowGround.png");
+	ground = CCSprite::createWithSpriteFrameName("soilGround.png");;
+    groundCopy = CCSprite::createWithSpriteFrameName("soilGround.png");
 
 	background->setAnchorPoint(ccp(0,0));
 	backgroundCopy->setAnchorPoint(ccp(0,0));
@@ -139,14 +204,14 @@ void GameScenePlayLayer::backgroundInit()
     resetBackground();
     sun->setPosition(ccp(winWidth/2, winHeight*0.7));
 
-	addChild(background,0);
-	addChild(backgroundCopy,0);
+	addChild(background,-2);			//调整了一下sprite的优先级，避免coin被地板遮挡的情况
+	addChild(backgroundCopy,-2);
 	addChild(shop,1);
 	addChild(sun,6);
-	addChild(ground,1);
-	addChild(groundCopy,1);
+	addChild(ground,-1);
+	addChild(groundCopy,-1);
 
-	chenxiaogeArmature->setPosition((chenxiaogeArmature->getContentSize().width)*0.3, ground->getContentSize().height);
+	chenxiaogeArmature->setPosition((chenxiaogeArmature->getContentSize().width)*0.3, ground->getContentSize().height - 20);
 }
 
 
@@ -180,8 +245,8 @@ void GameScenePlayLayer::resetBackground()
 	float winWidth = winSize.width;
 	float winHeight = winSize.height;
     background->setPosition(ccp(0,0));
-	backgroundCopy->setPosition(ccp(background->getPosition().x + background->getContentSize().width, 0));
+	backgroundCopy->setPosition(ccp(background->getPosition().x + background->getContentSize().width -1, 0)); //-1消除使用SpriteFrame带来的边框
 	ground->setPosition(ccp(0,0));
-	groundCopy->setPosition(ccp(ground->getPosition().x + ground->getContentSize().width, 0));
+	groundCopy->setPosition(ccp(ground->getPosition().x + ground->getContentSize().width -1, 0));
 	shop->setPosition(ccp(winWidth, ground->getContentSize().height));
 }
