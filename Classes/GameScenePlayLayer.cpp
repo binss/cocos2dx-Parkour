@@ -4,7 +4,8 @@
 //
 //  Created by Ken on 13-10-10.
 //
-//
+//  Modified by binss on 2014-1-16
+//	For Coco2d-x final homework
 
 #include "GameScenePlayLayer.h"
 #include "GameScene.h"
@@ -17,11 +18,10 @@ bool GameScenePlayLayer::init()
 	crashArray = CCArray::create();
 	crashArray->retain();
 
-
     winSize = CCDirector::sharedDirector()->getWinSize();
-	this->running();
+
 	this->setTouchEnabled(true);
-	actionNum = ACTION_RUN;
+	this->setTouchMode(kCCTouchesOneByOne);
 
 
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("pictures/background.plist");
@@ -42,16 +42,17 @@ bool GameScenePlayLayer::init()
 
 	backgroundInit();
 
-	//Add snow particle
-	CCParticleSystem *particle = CCParticleSnow::create();
-	particle->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/snow.png"));
-	addChild(particle,5);
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo("animations/ChenXiaoGeJumping0.png",
+		"animations/ChenXiaoGeJumping0.plist","animations/ChenXiaoGeJumping.ExportJson");
 
+	this->running();
+	actionNum = ACTION_RUN;
+	score = 0;
 
 	this->schedule(schedule_selector(GameScenePlayLayer::createCoin),0.8f);
 	this->schedule(schedule_selector(GameScenePlayLayer::changeSeason),10);
 	this->scheduleUpdate();   
-
+	
     return true;
 }
 
@@ -78,7 +79,7 @@ void GameScenePlayLayer::createCoin(float dt)
 	}
 	
 	CCSprite *object = CCSprite::create(pic);
-	object->setScale(0.4f);
+	object->setScale(0.2f);
 	//CCSprite *object = CCSprite::createWithSpriteFrameName(pic);
 	object->setTag(tag);
 	object->setPosition(ccp(object->getContentSize().width/2 + 480 ,object->getContentSize().height/2 + 25));
@@ -101,18 +102,26 @@ void GameScenePlayLayer::rubbishCollection(CCObject *object)               //des
 		crashArray->removeObject(sprite);
 		//sprite->removeAllChildrenWithCleanup(true);
 		this->removeChild(sprite,true);
-		CCLOG("called");
+	}
+	else if(sprite->getTag() == 5)
+	{
+		sprite->removeAllChildrenWithCleanup(true);
+		actionNum = ACTION_RUN;
+		chenxiaogeArmature->setVisible(true);
 	}
 }
 
+
+
 bool GameScenePlayLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-   
+   	runJump();
 	return true;
 }
 
 void GameScenePlayLayer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
+
 }
 
 void GameScenePlayLayer::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
@@ -122,21 +131,44 @@ void GameScenePlayLayer::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 
 void GameScenePlayLayer::running()
 {
-	CCArmature *armature = NULL;
-	armature = CCArmature::create("ChenXiaoGeRunning");
-	armature->setScale(0.3);
-	armature->getAnimation()->play("running");
-	armature->getAnimation()->setSpeedScale(2.0f);
-	armature->setAnchorPoint(ccp(0.5,0));
-	addChild(armature,5);
-	chenxiaogeArmature = armature;
+	chenxiaogeArmature = CCArmature::create("ChenXiaoGeRunning");
+	chenxiaogeArmature->setScale(0.3f);
+	chenxiaogeArmature->getAnimation()->play("running");
+	chenxiaogeArmature->getAnimation()->setSpeedScale(2.0f);
+	chenxiaogeArmature->setAnchorPoint(ccp(0.5,0));
+	chenxiaogeArmature->setPosition((chenxiaogeArmature->getContentSize().width)*0.3 + 20, ground->getContentSize().height - 20);
+	chenxiaogeArmature->setTag(5);
+	addChild(chenxiaogeArmature,5);
+	
 	actionNum = ACTION_RUN;
+	
+
 }
 
 void GameScenePlayLayer::runJump()
 {  
- 
+	CCLOG("jump :%i",actionNum);
+	if(actionNum == ACTION_RUN)
+	{
+		chenxiaogeArmature->setVisible(false);
+		CCArmature *armature = NULL;
+		armature = CCArmature::create("ChenXiaoGeJumping");
+		armature->setScale(0.3f);
+		armature->getAnimation()->setSpeedScale(2.0f);
+		armature->setAnchorPoint(ccp(0.5,0));
+		armature->getAnimation()->play("running");
+		armature->setTag(5);
+		armature->setPosition((armature->getContentSize().width)*0.3 + 20, ground->getContentSize().height - 20);
+		addChild(armature,8);
+		actionNum = ACTION_RUN_JUMP;
+		
+		CCActionInterval *jump = CCJumpBy::create(1.0f,ccp(0,0), 50, 1);    //参数：跳跃时间，相对位置，最大高度，次数
+		CCCallFuncO *callback = CCCallFuncO::create(this,callfuncO_selector(GameScenePlayLayer::rubbishCollection),armature);
+		CCSequence *sequence = CCSequence::create(jump,callback,NULL);
+		armature->runAction(sequence);  
+	}
 }
+
 
 void GameScenePlayLayer::changeSeason(float dt)
 {
@@ -151,6 +183,8 @@ void GameScenePlayLayer::changeSeason(float dt)
 			backgroundCopy->setDisplayFrame(background_spring);
 			ground->setDisplayFrame(ground_spring);
 			groundCopy->setDisplayFrame(ground_spring);
+			particle->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/sakura.png"));
+			particle2->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/sakura2.png"));
 			break;
 		}
 	case 2:
@@ -159,6 +193,8 @@ void GameScenePlayLayer::changeSeason(float dt)
 			backgroundCopy->setDisplayFrame(background_summer);
 			ground->setDisplayFrame(ground_summer);
 			groundCopy->setDisplayFrame(ground_summer);
+			particle->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/leaf.png"));
+			particle2->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/leaf2.png"));
 			break;
 		}
 	case 3:
@@ -167,6 +203,8 @@ void GameScenePlayLayer::changeSeason(float dt)
 			backgroundCopy->setDisplayFrame(background_autumn);
 			ground->setDisplayFrame(ground_autumn);
 			groundCopy->setDisplayFrame(ground_autumn);
+			particle->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/MapleLeaves1.png"));
+			particle2->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/MapleLeaves2.png"));
 			break;
 		}
 	case 4:
@@ -175,6 +213,8 @@ void GameScenePlayLayer::changeSeason(float dt)
 			backgroundCopy->setDisplayFrame(background_winter);
 			ground->setDisplayFrame(ground_winter);
 			groundCopy->setDisplayFrame(ground_winter);
+			particle->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/snow.png"));
+			particle2->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/snow.png"));
 			break;
 		}
 		
@@ -183,10 +223,18 @@ void GameScenePlayLayer::changeSeason(float dt)
 
 void GameScenePlayLayer::backgroundInit()
 {
-	season = 1;
+	season = 1;     //设定季节
+	//添加粒子效果
+	particle = CCParticleSnow::create();
+	particle->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/sakura.png"));
+	addChild(particle,5);
+	particle2 = CCParticleSnow::create();
+	particle2->setTexture(CCTextureCache::sharedTextureCache()->addImage("pictures/sakura2.png"));
+	addChild(particle2,6);
 	float winWidth = winSize.width;
 	float winHeight = winSize.height;
     
+	//初始化背景
 	background = CCSprite::createWithSpriteFrameName("background-spring.png");
 	backgroundCopy = CCSprite::createWithSpriteFrameName("background-spring.png");
 	shop = CCSprite::create("pictures/shop.png");
@@ -210,8 +258,6 @@ void GameScenePlayLayer::backgroundInit()
 	addChild(sun,6);
 	addChild(ground,-1);
 	addChild(groundCopy,-1);
-
-	chenxiaogeArmature->setPosition((chenxiaogeArmature->getContentSize().width)*0.3, ground->getContentSize().height - 20);
 }
 
 
@@ -222,7 +268,30 @@ void GameScenePlayLayer::update(float dt)
 	{
 		CCSprite *object = (CCSprite*)obj;
 		object->setPositionX(object->getPosition().x-1);
-		if(object->getPosition().x < 50)
+
+		if(object->getPosition().x >= 49 && object->getPosition().x <= 51 && actionNum == ACTION_RUN)
+		{
+			if(object->getTag() == 3)  //死亡判定
+			{
+				CCLOG("gameover");
+				continue;
+			}
+			if(object->getTag() == 1)  //银币
+			{
+				score ++;
+				rubbishCollection(object);
+				CCLOG("%i",score);
+				continue;
+			}
+			if(object->getTag() == 2)  //金币
+			{
+				score += 10;
+				CCLOG("%i",score);
+				rubbishCollection(object);
+				continue;
+			}
+		}
+		if(object->getPosition().x < 0)
 			rubbishCollection(object);
 	}
 

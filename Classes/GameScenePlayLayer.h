@@ -39,6 +39,7 @@ private:
 	void createCoin(float dt);
 	void rubbishCollection(CCObject *object);
 	void changeSeason(float dt);
+	
 	CCSpriteFrame* background_spring;
 	CCSpriteFrame* background_summer;
 	CCSpriteFrame* background_autumn;
@@ -56,9 +57,12 @@ private:
 	CCSprite* ground;
 	CCSprite* groundCopy;
 
+	CCParticleSystem *particle;
+	CCParticleSystem *particle2;
 	CCSize winSize;
  	int actionNum;
 	int season;
+	int score;
 	CCArray *crashArray;
 
 	enum
