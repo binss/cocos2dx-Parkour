@@ -1,0 +1,15 @@
+{
+  "armature_data": [
+    {
+      "strVersion": "1.0.2.0",
+      "version": 1.02,
+      "name": "ChenXiaoGeWelcome"
+    }
+  ],
+  "animation_data": [
+    {
+      "name": "ChenXiaoGeWelcome"
+    }
+  ],
+  "texture_data": null
+}

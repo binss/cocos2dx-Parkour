@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <filePath>D:\cocos2d-x-2.2\projects\ParkourSample\ChenXiaoGeStudio\Jumping\ChenXiaoGeJumping\ChenXiaoGeJumping.xml.animation</filePath>
+  <Version>1.2.0.0</Version>
+  <Name>ChenXiaoGeRunning</Name>
+  <ProjectDir>D:\cocos2d-x-2.2\projects\ParkourSample\ChenXiaoGeStudio\Jumping\ChenXiaoGeJumping</ProjectDir>
+  <JsonFileName>ChenXiaoGeRunning.json</JsonFileName>
+  <Resources>D:\cocos2d-x-2.2\projects\ParkourSample\ChenXiaoGeStudio\Jumping\ChenXiaoGeJumping\Resources</Resources>
+  <JsonFolder>D:\cocos2d-x-2.2\projects\ParkourSample\ChenXiaoGeStudio\Jumping\ChenXiaoGeJumping\Json</JsonFolder>
+  <JsonList />
+  <ResourceFileList>
+    <string>ChenXiaoGeJumping0.plist</string>
+  </ResourceFileList>
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

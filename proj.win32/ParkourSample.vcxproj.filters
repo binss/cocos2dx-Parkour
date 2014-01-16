@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{4ee9b4e6-b7c9-4458-a329-c6a9daacab10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\animations">
+      <UniqueIdentifier>{9931e210-3353-4436-a119-e3dcf2503880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\pictures">
+      <UniqueIdentifier>{fc0405a3-7314-40ce-a3ad-90a5845ad8f8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScenePlayLayer.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenuScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScenePlayLayer.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\pictures\background.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\cloverGlodenCoin.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\cloverSliverCoin.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\greenGround.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\leaf.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\leaf2.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\loading.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\mainMenuBackGround.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\mapleGround.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\MapleLeaves1.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\MapleLeaves2.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\moneyPocket.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\roadBlock.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\sakura.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\sakura2.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\shop.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\snow.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\snowGround.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\soilGround.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\startbtn.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\startbtnPush.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\sun.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\pictures\trees.png">
+      <Filter>resources\pictures</Filter>
+    </Image>
+    <Image Include="..\Resources\animations\ChenXiaoGeRunning0.png">
+      <Filter>resources\animations</Filter>
+    </Image>
+    <Image Include="..\Resources\animations\ChenXiaoGeWelcome0.png">
+      <Filter>resources\animations</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\pictures\qwe.plist">
+      <Filter>resources\pictures</Filter>
+    </None>
+    <None Include="..\Resources\animations\ChenXiaoGeRunning.ExportJson">
+      <Filter>resources\animations</Filter>
+    </None>
+    <None Include="..\Resources\animations\ChenXiaoGeRunning0.plist">
+      <Filter>resources\animations</Filter>
+    </None>
+    <None Include="..\Resources\animations\ChenXiaoGeWelcome.ExportJson">
+      <Filter>resources\animations</Filter>
+    </None>
+    <None Include="..\Resources\animations\ChenXiaoGeWelcome0.plist">
+      <Filter>resources\animations</Filter>
+    </None>
+  </ItemGroup>
+</Project>

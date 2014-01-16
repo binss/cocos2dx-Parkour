@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ChenXiaoGeWelcome</Name>
+  <ProjectDir>C:\Users\cocos2d-x\Documents\ChenXiaoGeWelcome</ProjectDir>
+  <JsonFileName>ChenXiaoGeWelcome.json</JsonFileName>
+  <Resources>C:\Users\cocos2d-x\Documents\ChenXiaoGeWelcome\Resources</Resources>
+  <JsonFolder>C:\Users\cocos2d-x\Documents\ChenXiaoGeWelcome\Json</JsonFolder>
+  <JsonList />
+  <ResourceFileList>
+    <string>ChenXiaoGeWelcome0.plist</string>
+  </ResourceFileList>
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

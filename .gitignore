@@ -1,0 +1,7 @@
+proj.win32/Debug.win32/
+proj.win32/ipch/
+proj.android/
+proj.winrt/
+proj.wp8/
+proj.mac/
+*.sdf
