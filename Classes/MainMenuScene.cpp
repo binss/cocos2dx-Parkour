@@ -50,6 +50,8 @@ bool MainMenuScene::init()
 
     this->addChild(menuLayer ,0);
 
+	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("sound/background.mp3");    //‘§∂¡±≥æ∞“Ù¿÷
+
     return true;
 }
 

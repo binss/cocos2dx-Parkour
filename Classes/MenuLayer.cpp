@@ -18,6 +18,9 @@ bool MenuLayer::init(int broodBarPercent, const char *value)
 	scoreLabel = dynamic_cast<UILabelAtlas*>(this->getWidgetByName("score"));
 	setScore(value);
 
+	musicEffect = 50;
+	musicVolume = 50;
+
 	return true;
 }
 void MenuLayer::settingBtnCallback(CCObject *pSender, TouchEventType type)
@@ -25,6 +28,16 @@ void MenuLayer::settingBtnCallback(CCObject *pSender, TouchEventType type)
 	if(type == TOUCH_EVENT_ENDED)
 	{
 		CCLOG("game setting show");
+		SettingMenuLayer* gameSetLayer = new SettingMenuLayer();
+		if(gameSetLayer && gameSetLayer->init(musicEffect, musicVolume))
+		{
+			gameSetLayer->autorelease();
+		}
+		else
+		{
+			CC_SAFE_DELETE(gameSetLayer);
+		}
+		//GameScene::shareGameScene();
 	}
 }
 

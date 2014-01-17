@@ -14,7 +14,6 @@ bool GameScene::init()
 	if(menuLayer && menuLayer->init(100, "0"))
 	{
 		menuLayer->autorelease();
-		CCLOG("haha");
 	}else{
 
 		CC_SAFE_DELETE(menuLayer);

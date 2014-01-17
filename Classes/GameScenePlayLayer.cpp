@@ -51,7 +51,8 @@ bool GameScenePlayLayer::init()
 	this->schedule(schedule_selector(GameScenePlayLayer::createCoin),0.8f);
 	this->schedule(schedule_selector(GameScenePlayLayer::changeSeason),10);
 	this->scheduleUpdate();   
-	
+
+	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("sound/background.mp3", true);
     return true;
 }
 
@@ -114,6 +115,7 @@ void GameScenePlayLayer::rubbishCollection(CCObject *object)               //des
 
 bool GameScenePlayLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
+	SimpleAudioEngine::sharedEngine()->playEffect("sound/jump.mp3");
    	runJump();
 	return true;
 }
@@ -281,10 +283,12 @@ void GameScenePlayLayer::update(float dt)
 			case 1: score++;break;
 			case 2: score += 10;break;
 			}
+			SimpleAudioEngine::sharedEngine()->playEffect("sound/coin.mp3");
 			char char_score[6];
 			itoa(score, char_score, 10); 
 			GameScene::shareGameScene()->menuLayer->setScore(char_score);
 			rubbishCollection(object);
+			
 			continue;
 
 			/*
@@ -343,6 +347,8 @@ void GameScenePlayLayer::resetBackground()
 
 void GameScenePlayLayer::gameOver()
 {
+	SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+	SimpleAudioEngine::sharedEngine()->playEffect("sound/death.mp3");
 	GameOverScene *scene = GameOverScene::create();
 	CCDirector::sharedDirector()->replaceScene(scene);
 }

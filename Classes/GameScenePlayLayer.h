@@ -10,11 +10,13 @@
 #define ChenXiaoGe_GameScenePlayLayer_h
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "SimpleAudioEngine.h"
+
 
 using namespace std;
 USING_NS_CC;
-
 using namespace extension;
+using namespace CocosDenshion;
 
 class GameScene;
 
