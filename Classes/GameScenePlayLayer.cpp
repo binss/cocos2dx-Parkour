@@ -53,6 +53,7 @@ bool GameScenePlayLayer::init()
 	this->scheduleUpdate();   
 
 	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("sound/background.mp3", true);
+	SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(0.5f);
     return true;
 }
 

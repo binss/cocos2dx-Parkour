@@ -4,10 +4,14 @@ bool SettingMenuLayer::init(int effectStatus, int volumn)
 {
 	if(UILayer::init())
 	{
+		this->setTouchEnabled(true);
+		this->setTouchMode(kCCTouchesOneByOne);
+		SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 		//GameScene* parentScene = GameScene::shareGameScene();
-		//CCDirector::sharedDirector()->pause();
+		CCDirector::sharedDirector()->pause();
 		//parentScene->playLayer->setTouchEnabled(false);
 		//parentScene->menuLayer->settingBtn->setTouchEnable(false);
+	
 
 		Widget * myWidget =  dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile("UI/SettingMenu/SettingMenu_1.json"));
 		this->addWidget(myWidget);
@@ -83,9 +87,9 @@ void SettingMenuLayer::musicVolumeSliderCallFunc(cocos2d::CCObject *pSender, Sli
 	if(type == SLIDER_PERCENTCHANGED)
 	{
 		voice = musicVolumeSlider->getPercent();
-		if(musicVolumeSlider->getPercent()<8)
+		if(musicVolumeSlider->getPercent()<5)
 		{
-			musicVolumeSlider->setPercent(8);
+			musicVolumeSlider->setPercent(5);
 			voice=0.0f;
 		}
 		else if(musicVolumeSlider->getPercent()>95)
@@ -93,6 +97,7 @@ void SettingMenuLayer::musicVolumeSliderCallFunc(cocos2d::CCObject *pSender, Sli
 			musicVolumeSlider->setPercent(95);
 			voice=100.0f;
 		}
+		CCLOG("%f",voice);
 		SimpleAudioEngine::sharedEngine()->setBackgroundMusicVolume(voice/100);
 	}
 	
@@ -105,6 +110,7 @@ void SettingMenuLayer::resumeGame(cocos2d::CCObject *pSender, TouchEventType typ
 {
 	if(type == TOUCH_EVENT_ENDED  )
 	{
+		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 		CCDirector::sharedDirector()->resume();
 		this->removeAllChildren();
 		this->removeFromParentAndCleanup(true);

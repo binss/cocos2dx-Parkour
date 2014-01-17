@@ -22,7 +22,6 @@ bool GameScene::init()
 	this->addChild(menuLayer, 2);
 
 
-	
     playLayer = new GameScenePlayLayer();   //¼ÓÔØÈËÎï
 	
 	if(playLayer && playLayer->init()){

@@ -28,6 +28,7 @@ void MenuLayer::settingBtnCallback(CCObject *pSender, TouchEventType type)
 	if(type == TOUCH_EVENT_ENDED)
 	{
 		CCLOG("game setting show");
+		
 		SettingMenuLayer* gameSetLayer = new SettingMenuLayer();
 		if(gameSetLayer && gameSetLayer->init(musicEffect, musicVolume))
 		{
@@ -37,7 +38,11 @@ void MenuLayer::settingBtnCallback(CCObject *pSender, TouchEventType type)
 		{
 			CC_SAFE_DELETE(gameSetLayer);
 		}
-		//GameScene::shareGameScene();
+		//GameScene::shareGameScene()->playLayer->setTouchEnabled(false);
+		//GameScene::shareGameScene()->menuLayer->setTouchEnabled(false);
+
+		GameScene::shareGameScene()->addChild(gameSetLayer,20);
+		
 	}
 }
 
