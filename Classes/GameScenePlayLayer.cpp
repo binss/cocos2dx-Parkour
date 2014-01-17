@@ -8,6 +8,7 @@
 //	For Coco2d-x final homework
 
 #include "GameScenePlayLayer.h"
+#include "GameOverScene.h"
 
 #define ANIME_RUN 0
 #define ANIME_JUMP 0
@@ -322,6 +323,6 @@ void GameScenePlayLayer::resetBackground()
 
 void GameScenePlayLayer::gameOver()
 {
-	//GameOverScene *scene = GameOverScene::create();
-	//CCDirector::sharedDirector()->replaceScene(scene);
+	GameOverScene *scene = GameOverScene::create();
+	CCDirector::sharedDirector()->replaceScene(scene);
 }

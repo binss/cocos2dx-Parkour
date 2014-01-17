@@ -4,11 +4,13 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-//#include "GameScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 using namespace extension;
 using namespace gui;
+
+class GameScene;
 
 class GameOverScene : public CCScene
 {

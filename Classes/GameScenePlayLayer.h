@@ -10,12 +10,13 @@
 #define ChenXiaoGe_GameScenePlayLayer_h
 #include "cocos2d.h"
 #include "cocos-ext.h"
-//#include "GameScene.h"
-//#include "GameOverScene.h"
+
 
 USING_NS_CC;
 
 using namespace extension;
+
+class GameScene;
 
 class GameScenePlayLayer : public cocos2d::CCLayer
 {

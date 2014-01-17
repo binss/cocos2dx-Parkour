@@ -50,8 +50,8 @@ void GameOverScene::restartGame(CCObject *pSender, TouchEventType type)
 	//CCLOG("touch restart");
 	if(type ==  TOUCH_EVENT_ENDED)
 	{
-		//CCScene *hello = GameScene::newGameScene();
-		//CCDirector::sharedDirector()->replaceScene(hello);
+		CCScene *hello = GameScene::newGameScene();
+		CCDirector::sharedDirector()->replaceScene(hello);
 	}
 }
 
