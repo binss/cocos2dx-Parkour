@@ -9,7 +9,22 @@
 
 bool GameScene::init()
 {    
-    playLayer = new GameScenePlayLayer();
+	menuLayer = new MenuLayer();        //加载菜单
+
+	if(menuLayer && menuLayer->init(100, "0"))
+	{
+		menuLayer->autorelease();
+		CCLOG("haha");
+	}else{
+
+		CC_SAFE_DELETE(menuLayer);
+	}
+	
+	this->addChild(menuLayer, 2);
+
+
+	
+    playLayer = new GameScenePlayLayer();   //加载人物
 	
 	if(playLayer && playLayer->init()){
 		
@@ -20,6 +35,7 @@ bool GameScene::init()
 	}
 	
     this->addChild(playLayer, 0);
+	
     return true;
 }
 

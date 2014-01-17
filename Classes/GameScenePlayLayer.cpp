@@ -21,7 +21,7 @@ bool GameScenePlayLayer::init()
 
 	this->setTouchEnabled(true);
 	this->setTouchMode(kCCTouchesOneByOne);
-
+	this->setTouchPriority(10);                    //优先处理菜单层的触摸
 
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("pictures/background.plist");
 	//创建一个精灵批处理节点，CCSpriteBatchNode可以智能地遍历它的所有的孩子结点，并通过一次OpenGL ES call来渲染这些孩子,提升渲染速度
@@ -61,12 +61,12 @@ void GameScenePlayLayer::createCoin(float dt)
 	int tag;
 	int randomType = CCRANDOM_0_1() * 100 + 1;
 
-	if (randomType < 0)
+	if (randomType < 70)
 	{
 		tag = 1;
 		pic = "pictures/cloverSliverCoin.png";     //1时为银币
 	}
-	else if(randomType < 10)
+	else if(randomType < 90)
 	{
 		pic = "pictures/cloverGlodenCoin.png";	   //2时为金币
 		tag = 2;
@@ -270,26 +270,47 @@ void GameScenePlayLayer::update(float dt)
 
 		if(object->getPosition().x >= 49 && object->getPosition().x <= 51 && actionNum == ACTION_RUN)
 		{
+			switch(object->getTag())
+			{
+			case 3:
+				{
+					CCLOG("gameOver");
+					gameOver();
+					return;
+				}
+			case 1: score++;break;
+			case 2: score += 10;break;
+			}
+			char char_score[6];
+			itoa(score, char_score, 10); 
+			GameScene::shareGameScene()->menuLayer->setScore(char_score);
+			rubbishCollection(object);
+			continue;
+
+			/*
 			if(object->getTag() == 3)  //死亡判定
 			{
 				CCLOG("gameover");
 				gameOver();
-				continue;
+				return;
 			}
 			if(object->getTag() == 1)  //银币
 			{
 				score ++;
 				rubbishCollection(object);
-				CCLOG("%i",score);
-				continue;
+
 			}
 			if(object->getTag() == 2)  //金币
 			{
 				score += 10;
-				CCLOG("%i",score);
-				rubbishCollection(object);
-				continue;
+				rubbishCollection(object);	
 			}
+			char char_score[6];
+			itoa(score, char_score, 10); 
+			GameScene::shareGameScene()->menuLayer->setScore(char_score);
+			CCLOG(char_score);
+			continue;
+			*/
 		}
 		if(object->getPosition().x < 0)
 			rubbishCollection(object);

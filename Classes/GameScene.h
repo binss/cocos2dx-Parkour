@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "GameScenePlayLayer.h"
+#include "MenuLayer.h"
 USING_NS_CC;
 
 using namespace extension;
@@ -26,6 +27,8 @@ public:
 	static GameScene * shareGameScene();
 	static GameScene * newGameScene();
     GameScenePlayLayer* playLayer;
+
+	MenuLayer* menuLayer;
 };
 
 #endif
