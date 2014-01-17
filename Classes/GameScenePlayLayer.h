@@ -10,6 +10,8 @@
 #define ChenXiaoGe_GameScenePlayLayer_h
 #include "cocos2d.h"
 #include "cocos-ext.h"
+//#include "GameScene.h"
+//#include "GameOverScene.h"
 
 USING_NS_CC;
 
@@ -39,6 +41,7 @@ private:
 	void createCoin(float dt);
 	void rubbishCollection(CCObject *object);
 	void changeSeason(float dt);
+	void gameOver();
 	
 	CCSpriteFrame* background_spring;
 	CCSpriteFrame* background_summer;

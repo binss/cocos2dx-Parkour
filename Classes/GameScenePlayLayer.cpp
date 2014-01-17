@@ -8,7 +8,6 @@
 //	For Coco2d-x final homework
 
 #include "GameScenePlayLayer.h"
-#include "GameScene.h"
 
 #define ANIME_RUN 0
 #define ANIME_JUMP 0
@@ -62,12 +61,12 @@ void GameScenePlayLayer::createCoin(float dt)
 	int tag;
 	int randomType = CCRANDOM_0_1() * 100 + 1;
 
-	if (randomType < 70)
+	if (randomType < 0)
 	{
 		tag = 1;
 		pic = "pictures/cloverSliverCoin.png";     //1时为银币
 	}
-	else if(randomType < 90)
+	else if(randomType < 10)
 	{
 		pic = "pictures/cloverGlodenCoin.png";	   //2时为金币
 		tag = 2;
@@ -274,6 +273,7 @@ void GameScenePlayLayer::update(float dt)
 			if(object->getTag() == 3)  //死亡判定
 			{
 				CCLOG("gameover");
+				gameOver();
 				continue;
 			}
 			if(object->getTag() == 1)  //银币
@@ -318,4 +318,10 @@ void GameScenePlayLayer::resetBackground()
 	ground->setPosition(ccp(0,0));
 	groundCopy->setPosition(ccp(ground->getPosition().x + ground->getContentSize().width -1, 0));
 	shop->setPosition(ccp(winWidth, ground->getContentSize().height));
+}
+
+void GameScenePlayLayer::gameOver()
+{
+	//GameOverScene *scene = GameOverScene::create();
+	//CCDirector::sharedDirector()->replaceScene(scene);
 }

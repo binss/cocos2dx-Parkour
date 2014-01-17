@@ -13,7 +13,7 @@ bool MainMenuScene::init()
 {    
 	menuLayer = CCLayer::create();
     CCSize size = CCDirector::sharedDirector()->getWinSize();
-    
+
     // Add backgrounbdPic
     CCSprite* backGroundPic = CCSprite::create("pictures/mainMenuBackGround.png");
     backGroundPic->setAnchorPoint(ccp(0, 0));
