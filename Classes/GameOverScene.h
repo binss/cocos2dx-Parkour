@@ -10,7 +10,7 @@ USING_NS_CC;
 using namespace extension;
 using namespace gui;
 
-class GameScene;
+class GameScenePlayLayer;  
 
 class GameOverScene : public CCScene
 {

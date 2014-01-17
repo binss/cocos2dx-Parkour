@@ -16,7 +16,7 @@ USING_NS_CC;
 
 using namespace extension;
 class GameOverScene;
-class GameScenePlayLayer;
+
 
 class GameScene : public cocos2d::CCScene
 {
