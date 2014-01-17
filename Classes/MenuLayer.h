@@ -5,7 +5,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "SettingMenuLayer.h"
-//#include "GameScene.h"
+
 USING_NS_CC;
 using namespace extension;
 using namespace gui;

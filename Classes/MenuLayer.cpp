@@ -1,5 +1,5 @@
 #include "MenuLayer.h"
-
+#include "GameScene.h"
 bool MenuLayer::init(int broodBarPercent, const char *value)
 {
 	UILayer::init();
