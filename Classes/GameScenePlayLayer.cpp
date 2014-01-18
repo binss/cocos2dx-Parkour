@@ -109,8 +109,11 @@ void GameScenePlayLayer::rubbishCollection(CCObject *object)               //des
 
 bool GameScenePlayLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-	SimpleAudioEngine::sharedEngine()->playEffect("sound/jump.mp3");
-   	runJump();
+	if(actionNum == ACTION_RUN)
+	{
+		SimpleAudioEngine::sharedEngine()->playEffect("sound/jump.mp3");
+   		runJump();
+	}
 	return true;
 }
 
