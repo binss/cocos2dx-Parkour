@@ -20,8 +20,8 @@ bool GameOverScene::init()
 			bRet = false;
 			break;
 		}
-			//CCLayer *layer = CCLayer::create();
-		//layer->addChild(myWidget);
+
+
 		UILayer  *layer = UILayer::create();
 		layer->setTouchEnabled(true);
 		layer->setTouchMode(kCCTouchesOneByOne);
@@ -37,6 +37,14 @@ bool GameOverScene::init()
 		button2->setTouchEnabled(true);
 		button2->setPressedActionEnabled(true);   
 		button2->addTouchEventListener(this, toucheventselector(GameOverScene::quitGame));	
+
+		UILabelAtlas* scoreLabel = dynamic_cast<UILabelAtlas*>(layer->getWidgetByName("yourscore"));
+		UILabelAtlas* highscoreLabel = dynamic_cast<UILabelAtlas*>(layer->getWidgetByName("highscore"));
+		char char_score[6];
+		itoa(CCUserDefault::sharedUserDefault()->getIntegerForKey("Score"), char_score, 10); 
+		scoreLabel->setStringValue(char_score);
+		itoa(CCUserDefault::sharedUserDefault()->getIntegerForKey("highScore"), char_score, 10); 
+		highscoreLabel->setStringValue(char_score);
 
 		this->addChild(layer);
 		
@@ -62,15 +70,3 @@ void GameOverScene::quitGame(CCObject *pSender, TouchEventType type)
 		CCDirector::sharedDirector()->end();
 	}
 }
-/*
-void GameOverLayer::restartGame(CCObject* obj)
-{
-	CCScene *hello = HelloWorld::scene();
-	CCDirector::sharedDirector()->replaceScene(hello);
-}
-
-void GameOverLayer::quitGame(CCObject* obj)
-{
-	CCDirector::sharedDirector()->end();
-}
-*/

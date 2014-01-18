@@ -20,9 +20,14 @@ public:
 	 void settingBtnCallback(CCObject *pSender, TouchEventType type);
 	 void setScore(const char *value);
 	 const char* MenuLayer::getScore();
+	 void setVoice(bool VolumeClosed,bool EffectClosed,int Volume,int Effect);
 	 UILabelAtlas* scoreLabel;
-	 int musicEffect;
+	 bool musicVolumeClosed;
+	 bool musicEffectClosed;
 	 int musicVolume;
+	 int musicEffect;
+	
+	
 	//virtual bool init();
 };
 

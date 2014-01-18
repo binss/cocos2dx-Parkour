@@ -20,6 +20,8 @@ bool MenuLayer::init(int broodBarPercent, const char *value)
 
 	musicEffect = 50;
 	musicVolume = 50;
+	musicVolumeClosed = false;
+	musicEffectClosed = false;
 
 	return true;
 }
@@ -30,7 +32,7 @@ void MenuLayer::settingBtnCallback(CCObject *pSender, TouchEventType type)
 		CCLOG("game setting show");
 		
 		SettingMenuLayer* gameSetLayer = new SettingMenuLayer();
-		if(gameSetLayer && gameSetLayer->init(musicEffect, musicVolume))
+		if(gameSetLayer && gameSetLayer->init(musicVolumeClosed,musicEffectClosed,musicVolume,musicEffect))
 		{
 			gameSetLayer->autorelease();
 		}
@@ -38,12 +40,18 @@ void MenuLayer::settingBtnCallback(CCObject *pSender, TouchEventType type)
 		{
 			CC_SAFE_DELETE(gameSetLayer);
 		}
-		//GameScene::shareGameScene()->playLayer->setTouchEnabled(false);
-		//GameScene::shareGameScene()->menuLayer->setTouchEnabled(false);
-
+	
 		GameScene::shareGameScene()->addChild(gameSetLayer,20);
 		
 	}
+}
+
+void MenuLayer::setVoice(bool VolumeClosed,bool EffectClosed,int Volume,int Effect)
+{
+	musicVolumeClosed = VolumeClosed;
+	musicEffectClosed = EffectClosed;
+	musicVolume = Volume;
+	musicEffect = Effect;
 }
 
 void MenuLayer::setScore(const char *value)

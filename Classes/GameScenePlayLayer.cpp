@@ -81,18 +81,11 @@ void GameScenePlayLayer::createCoin(float dt)
 	
 	CCSprite *object = CCSprite::create(pic);
 	object->setScale(0.2f);
-	//CCSprite *object = CCSprite::createWithSpriteFrameName(pic);
 	object->setTag(tag);
 	object->setPosition(ccp(object->getContentSize().width/2 + 480 ,object->getContentSize().height/2 + 25));
 	crashArray->addObject(object);
 	this->addChild(object);
-	/*
-	CCMoveBy *action = CCMoveBy::create(6,ccp(-480 - object->getContentSize().width / 2,0));               //the second parameter is offset
 
-	CCCallFuncO *callback = CCCallFuncO::create(this,callfuncO_selector(GameScenePlayLayer::rubbishCollection), object);
-	CCSequence *sequence = CCSequence::create(action,callback,NULL);   //do action and then callback(destroy)
-	object->runAction(sequence);
-	*/
 }
 
 void GameScenePlayLayer::rubbishCollection(CCObject *object)               //destroy the object which is out of view
@@ -164,7 +157,7 @@ void GameScenePlayLayer::runJump()
 		addChild(armature,8);
 		actionNum = ACTION_RUN_JUMP;
 		
-		CCActionInterval *jump = CCJumpBy::create(1.0f,ccp(0,0), 50, 1);    //参数：跳跃时间，相对位置，最大高度，次数
+		CCActionInterval *jump = CCJumpBy::create(0.8f,ccp(0,0), 50, 1);    //参数：跳跃时间，相对位置，最大高度，次数
 		CCCallFuncO *callback = CCCallFuncO::create(this,callfuncO_selector(GameScenePlayLayer::rubbishCollection),armature);
 		CCSequence *sequence = CCSequence::create(jump,callback,NULL);
 		armature->runAction(sequence);  
@@ -291,31 +284,6 @@ void GameScenePlayLayer::update(float dt)
 			rubbishCollection(object);
 			
 			continue;
-
-			/*
-			if(object->getTag() == 3)  //死亡判定
-			{
-				CCLOG("gameover");
-				gameOver();
-				return;
-			}
-			if(object->getTag() == 1)  //银币
-			{
-				score ++;
-				rubbishCollection(object);
-
-			}
-			if(object->getTag() == 2)  //金币
-			{
-				score += 10;
-				rubbishCollection(object);	
-			}
-			char char_score[6];
-			itoa(score, char_score, 10); 
-			GameScene::shareGameScene()->menuLayer->setScore(char_score);
-			CCLOG(char_score);
-			continue;
-			*/
 		}
 		if(object->getPosition().x < 0)
 			rubbishCollection(object);
@@ -348,6 +316,12 @@ void GameScenePlayLayer::resetBackground()
 
 void GameScenePlayLayer::gameOver()
 {
+	CCUserDefault::sharedUserDefault()->setIntegerForKey("Score",score);
+	int highScore = CCUserDefault::sharedUserDefault()->getIntegerForKey("highScore");
+	if (score > highScore)
+	{
+		CCUserDefault::sharedUserDefault()->setIntegerForKey("highScore", score);
+	}
 	SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 	SimpleAudioEngine::sharedEngine()->playEffect("sound/death.mp3");
 	GameOverScene *scene = GameOverScene::create();
